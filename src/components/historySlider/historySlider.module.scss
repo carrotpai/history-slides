@@ -1,5 +1,6 @@
 @use "../../utils/fonts/fonts.scss";
 .top-buttons {
+    margin-left: 80px;
     &__text {
         color: var(--black-blue);
         @include fonts.PTSansRegular(14px, 18px);
@@ -31,10 +32,21 @@
 }
 
 .swiper {
+    width: 100%;
+    margin-top: 56px;
     display: flex;
-    gap: 80px;
     align-items: center;
     flex-flow: row nowrap;
+
+    &__container {
+        cursor: grab;
+        width: calc(100% - 160px);
+        margin-right: 10px;
+        transition: opacity ease-in-out 300ms 0ms;
+        &_inactive {
+            opacity: 0;
+        }
+    }
 
     &__button {
         display: flex;
@@ -47,8 +59,12 @@
         &:hover {
             opacity: var(--button-hover-opacity);
         }
+        &_inactive {
+            visibility: hidden;
+        }
     }
     &__left {
         transform: rotate(180deg);
+        margin-right: 10px;
     }
 }

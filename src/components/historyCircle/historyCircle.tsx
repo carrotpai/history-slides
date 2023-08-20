@@ -5,28 +5,31 @@ import CircleButton from "../circleButton/circleButton";
 import { useHistoryState } from "../../store/store";
 
 interface HistoryCircleProps {
-	buttonsAmount?: number;
 	currentPage: number;
+	buttonsLabels: string[];
 }
 
-function HistoryCircle({ buttonsAmount = 0, currentPage }: HistoryCircleProps) {
+function HistoryCircle({
+	buttonsLabels = [],
+	currentPage,
+}: HistoryCircleProps) {
 	const circleRotate = useHistoryState((state) => state.circleRotate);
 	const vars = {
 		"--rot": circleRotate,
-		"--m": buttonsAmount,
+		"--m": buttonsLabels.length,
 	} as React.CSSProperties;
 	return (
 		<div>
 			<div className={styles.circle} />
 			<div style={vars} className={styles["button-container"]}>
-				{[...Array(buttonsAmount)].map((_, i) => (
+				{buttonsLabels.map((label, i) => (
 					<CircleButton
 						key={`circle-button-${i}`}
-						buttonsAmount={buttonsAmount}
+						buttonsAmount={buttonsLabels.length}
 						radius={270}
 						order={i + 1}
 						active={i === currentPage}
-						label='Наука'
+						label={label}
 					/>
 				))}
 			</div>

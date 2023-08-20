@@ -16,9 +16,13 @@
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
-        gap: 78px;
+        gap: 74px;
         width: 353px;
         color: var(--black-blue);
         @include fonts.PTSansBold(56px, 1.2);
+    }
+
+    &__slider {
+        margin-top: 137px;
     }
 }

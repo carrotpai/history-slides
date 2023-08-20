@@ -38,7 +38,7 @@
         @include fonts.PTSansRegular(20px, 30px);
     }
     &__text {
-        transition: opacity ease-out 500ms 0ms;
+        transition: opacity ease-out 300ms 300ms;
         opacity: 0;
         color: var(--black-blue);
         @include fonts.PTSansBold(20px, 30px);

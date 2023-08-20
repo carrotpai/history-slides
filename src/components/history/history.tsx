@@ -18,6 +18,7 @@ function History() {
 		sliderData[currentPage].slides[0].year,
 		sliderData[currentPage].slides.slice(-1)[0].year,
 	];
+	const buttonsLabels = sliderData.map((item) => item.sliceLabel);
 	return (
 		<section className={styles["history-section"]}>
 			<div className={styles["history-section__title"]}>
@@ -26,10 +27,14 @@ function History() {
 				</div>
 				<p>Исторические даты</p>
 			</div>
-			<HistoryCircle currentPage={currentPage} buttonsAmount={6} />
+			<HistoryCircle currentPage={currentPage} buttonsLabels={buttonsLabels} />
 			<HistoryTimestamps fromYear={fromYear} toYear={toYear} />
-			<div className='history-section__slider'>
-				<HistorySlider sliderSlices={sliderData} />
+			<div className={styles["history-section__slider"]}>
+				<HistorySlider
+					sliceOrder={currentPage + 1}
+					slides={sliderData[currentPage].slides}
+					slicesLength={sliderData.length}
+				/>
 			</div>
 		</section>
 	);

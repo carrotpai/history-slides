@@ -78,7 +78,7 @@ function CircleButton({
 						active && styles.active_text
 					}`}
 				>
-					{label}
+					{active && `${label}`}
 				</p>
 			</div>
 		</div>
