@@ -1,0 +1,24 @@
+@use "../../utils/fonts/fonts.scss";
+.years-timestamp {
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+
+    &__text {
+        position: relative;
+        left: -12px;
+        z-index: 2;
+        display: flex;
+        gap: 110px;
+        @include fonts.PTSansBold(200px, 160px);
+        letter-spacing: -4px;
+    }
+
+    &__left {
+        color: var(--iris-text);
+    }
+
+    &__right {
+        color: var(--fuschia-text);
+    }
+}

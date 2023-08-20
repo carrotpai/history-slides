@@ -1,0 +1,42 @@
+.horizontal-line {
+    width: 100%;
+    position: absolute;
+    top: 44%;
+    left: 0;
+    z-index: 1;
+    border-bottom: 1px solid var(--lines-color);
+}
+
+.vertical-line {
+    height: 100%;
+    left: 50%;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+    border-left: 1px solid var(--lines-color);
+}
+
+.circle {
+    border: 1px solid var(--lines-color);
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    top: 44%;
+    transform: translate(-50%, -50%);
+    width: 540px;
+    height: 540px;
+}
+
+.button-container {
+    transition: transform ease-in-out 500ms 0ms;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    top: 44%;
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--rot) * 1turn / var(--m)));
+    width: 540px;
+    height: 540px;
+    z-index: 5;
+    width: 540px;
+    height: 540px;
+}

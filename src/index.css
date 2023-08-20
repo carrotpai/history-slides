@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=PT+Sans:wght@400;700&display=block');
+@import "./utils/variables.css";
+
+
+body {
+  margin: 0;
+  font-family: "PT sans", "Bebas Neue";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-main-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p {
+  margin: 0;
+}

@@ -1,0 +1,17 @@
+@use "sass:list";
+
+@mixin PTSansRegular($font-size, $line-height) {
+    font: 400 font($font-size, $line-height) "PT Sans";
+}
+
+@mixin PTSansBold($font-size, $line-height) {
+    font: 700 font($font-size, $line-height) "PT Sans";
+}
+
+@mixin BebasNeue($font-size, $line-height) {
+    font: 400 font($font-size, $line-height) "Bebas Neue";
+}
+
+@function font($font-size, $line-height) {
+    @return list.slash($font-size, $line-height);
+}

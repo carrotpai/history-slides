@@ -1,0 +1,76 @@
+@use "../../utils/fonts/fonts.scss";
+
+.buttonWrapper {
+}
+
+.circleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all ease-in-out 300ms 0ms;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--black-blue);
+    position: absolute;
+    border: 1px solid transparent;
+    margin: 4px;
+    top: 48.5%;
+    left: 48.5%;
+    width: 8px;
+    height: 8px;
+    --az: calc((var(--i) - 2) * 1turn / var(--m));
+    transform: rotate(var(--az)) translate(var(--r)) rotate(calc(-1 * var(--az)))
+        rotate(calc(var(--rot) * 1turn / var(--m)));
+    z-index: 10;
+    &:hover {
+        transform: rotate(var(--az)) translate(var(--r)) rotate(calc(-1 * var(--az))) translate(-28px, -28px)
+            rotate(calc(var(--rot) * 1turn / var(--m)));
+        width: 56px;
+        height: 56px;
+        background-color: #f4f5f9;
+        border: 1px solid #9299a8;
+        /* animation: scale 300ms ease-in-out 0ms;
+        animation-fill-mode: forwards; */
+    }
+    &__order {
+        display: block;
+        color: var(--black-blue);
+        @include fonts.PTSansRegular(20px, 30px);
+    }
+    &__text {
+        transition: opacity ease-out 500ms 0ms;
+        opacity: 0;
+        color: var(--black-blue);
+        @include fonts.PTSansBold(20px, 30px);
+        left: 80px;
+        position: absolute;
+    }
+}
+
+.active_text {
+    opacity: 1;
+}
+
+.active {
+    --az: calc((var(--i) - 2) * 1turn / var(--m));
+    transform: rotate(var(--az)) translate(var(--r)) rotate(calc(-1 * var(--az))) translate(-28px, -28px)
+        rotate(calc(var(--rot) * 1turn / var(--m)));
+    width: 56px;
+    height: 56px;
+    background-color: #f4f5f9;
+    border: 1px solid #9299a8;
+}
+
+@keyframes scale {
+    0% {
+        width: 8px;
+        height: 8px;
+    }
+    100% {
+        transform: rotate(var(--az)) translate(var(--r)) rotate(calc(-1 * var(--az))) translate(-28px, -28px);
+        width: 56px;
+        height: 56px;
+        background-color: #f4f5f9;
+        border: 1px solid #9299a8;
+    }
+}
