@@ -1,0 +1,25 @@
+@use "./mediaVars";
+
+@mixin desktop {
+    @media screen and (min-width: mediaVars.$desktop) {
+        @content;
+    }
+}
+
+@mixin desktop-small {
+    @media screen and (max-width: mediaVars.$desktop-small) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media screen and (max-width: mediaVars.$laptop) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and (max-width: mediaVars.$mobile) {
+        @content;
+    }
+}

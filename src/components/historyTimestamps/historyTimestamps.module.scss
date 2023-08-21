@@ -1,8 +1,13 @@
 @use "../../utils/fonts/fonts.scss";
+@use "../../utils/media";
 .years-timestamp {
     margin-top: 90px;
     display: flex;
     justify-content: center;
+
+    @include media.mobile {
+        margin-top: 56px;
+    }
 
     &__text {
         position: relative;
@@ -12,6 +17,22 @@
         gap: 110px;
         @include fonts.PTSansBold(200px, 160px);
         letter-spacing: -4px;
+
+        @include media.desktop-small {
+            left: 0;
+            gap: 56px;
+            @include fonts.PTSansBold(134px, 150px);
+        }
+
+        @include media.laptop {
+            gap: 44px;
+            @include fonts.PTSansBold(100px, 150px);
+        }
+        @include media.mobile {
+            gap: 32px;
+            @include fonts.PTSansBold(56px, 56px);
+            letter-spacing: -1.12px;
+        }
     }
 
     &__left {

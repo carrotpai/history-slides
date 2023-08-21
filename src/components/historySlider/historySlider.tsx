@@ -1,7 +1,8 @@
 import React from "react";
 import { shallow } from "zustand/shallow";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
-import { Virtual } from "swiper/modules";
+import { Pagination } from "swiper/modules";
+import { useMediaQuery } from "usehooks-ts";
 
 import { ReactComponent as TopButtonSvg } from "../../assets/icons/top-button.svg";
 import { ReactComponent as SwiperButton } from "../../assets/icons/swiper-button.svg";
@@ -11,7 +12,8 @@ import Slide from "./slide/slide";
 
 import styles from "./historySlider.module.scss";
 import "swiper/css";
-import "swiper/css/virtual";
+import "swiper/css/pagination";
+import "./historySlide.scss";
 
 interface SliderProps {
 	slides: SlideDataType[];
@@ -20,6 +22,7 @@ interface SliderProps {
 }
 
 function HistorySlider({ slides, slicesLength, sliceOrder }: SliderProps) {
+	const isMobile = useMediaQuery("(max-width: 1279px)");
 	const [{ isBeginning, isEnd }, setSwiperState] = React.useState<{
 		isBeginning: boolean;
 		isEnd: boolean;
@@ -29,6 +32,7 @@ function HistorySlider({ slides, slicesLength, sliceOrder }: SliderProps) {
 
 	const swiperRef = React.useRef<SwiperRef>(null);
 	const swiperContainerRef = React.useRef<HTMLDivElement>(null);
+	const swiperPaginationRef = React.useRef<HTMLDivElement>(null);
 
 	const { currentPage, setCurrentPage, setCircleRotate } = useHistoryState(
 		(state) => ({
@@ -39,17 +43,28 @@ function HistorySlider({ slides, slicesLength, sliceOrder }: SliderProps) {
 		shallow
 	);
 
+	React.useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		swiperRef.current!.swiper.activeIndex = currentSlides.length - 1;
+	}, [isEnd]);
+
 	//для анимаций fade
 	React.useEffect(() => {
 		swiperContainerRef.current?.classList.add(
 			styles.swiper__container_inactive
 		);
+		swiperPaginationRef.current?.classList.add(
+			styles.swiper__pagination_inactive
+		);
 		const timeout = setTimeout(() => {
 			swiperContainerRef.current?.classList.remove(
 				styles.swiper__container_inactive
 			);
-			swiperRef.current?.swiper.slideTo(0, 0);
+			swiperPaginationRef.current?.classList.remove(
+				styles.swiper__pagination_inactive
+			);
 			setCurrentSlides(slides);
+			swiperRef.current?.swiper.slideTo(0, 0);
 		}, 400);
 		return () => {
 			clearTimeout(timeout);
@@ -57,8 +72,9 @@ function HistorySlider({ slides, slicesLength, sliceOrder }: SliderProps) {
 	}, [slides]);
 
 	return (
-		<div>
+		<div className={styles.wrapper}>
 			<div className={styles["top-buttons"]}>
+				<div ref={swiperPaginationRef} className={styles.swiper__pagination} />
 				<p className={styles["top-buttons__text"]}>{`${
 					currentPage + 1 >= 10
 						? currentPage + 1
@@ -108,33 +124,54 @@ function HistorySlider({ slides, slicesLength, sliceOrder }: SliderProps) {
 				>
 					<SwiperButton />
 				</button>
-
-				<div ref={swiperContainerRef} className={styles.swiper__container}>
+				<div ref={swiperContainerRef} className={`${styles.swiper__container}`}>
 					<Swiper
-						spaceBetween={80}
-						slidesPerView={3}
 						ref={swiperRef}
-						modules={[Virtual]}
-						onSlideChange={() => {
-							const swiper = swiperRef.current?.swiper;
+						modules={[Pagination]}
+						pagination={{ el: swiperPaginationRef.current }}
+						watchSlidesProgress
+						breakpoints={{
+							1280: {
+								spaceBetween: 80,
+								slidesPerView: 3,
+							},
+							0: {
+								spaceBetween: 25,
+								slidesPerView: "auto",
+							},
+						}}
+						onReachEnd={(swiper) => {
 							setSwiperState({
-								isEnd: swiper?.activeIndex === currentSlides.length - 3, //3 slides per view
+								isEnd: true,
 								isBeginning: swiper?.activeIndex === 0,
 							});
 						}}
-						virtual
+						onSlideChange={(swiper) => {
+							setSwiperState({
+								isEnd:
+									swiper?.activeIndex ===
+									currentSlides.length - (isMobile ? 1 : 3), // -slides per view
+								isBeginning: swiper?.activeIndex === 0,
+							});
+						}}
 					>
 						{currentSlides.map((item, i) => (
-							<SwiperSlide
-								key={`slide-${i * sliceOrder}`}
-								virtualIndex={i * sliceOrder}
-							>
-								<Slide year={item.year} text={item.text} />
+							<SwiperSlide key={`slide-${i}`}>
+								{({ isActive }) => {
+									return (
+										<Slide
+											year={item.year}
+											text={item.text}
+											wrapperClassName={`${styles.slide} ${
+												!isActive && !isEnd && styles.slide_inactive
+											}`}
+										/>
+									);
+								}}
 							</SwiperSlide>
 						))}
 					</Swiper>
 				</div>
-
 				<button
 					type='button'
 					className={`${styles.swiper__button} ${

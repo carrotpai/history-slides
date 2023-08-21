@@ -1,17 +1,38 @@
 @use "../../../utils/fonts/fonts.scss";
+@use "../../../utils/media";
 .slide {
     display: flex;
     flex-flow: column nowrap;
     gap: 15px;
 
+    @include media.mobile {
+        width: 160px;
+    }
+
+    @media screen and (min-width: 450px) and (max-width: 1279px) {
+        width: 200px;
+    }
+
     &__year {
         color: var(--blue-text);
         @include fonts.BebasNeue(25px, 30px);
         text-transform: uppercase;
+        @include media.laptop {
+            @include fonts.BebasNeue(18px, 21px);
+        }
+        @include media.mobile {
+            @include fonts.BebasNeue(16px, 19px);
+        }
     }
 
     &__text {
         color: var(--black-blue);
         @include fonts.PTSansRegular(20px, 30px);
+        @include media.laptop {
+            @include fonts.PTSansRegular(16px, 20px);
+        }
+        @include media.mobile {
+            @include fonts.PTSansRegular(14px, 20px);
+        }
     }
 }

@@ -1,7 +1,5 @@
 @use "../../utils/fonts/fonts.scss";
-
-.buttonWrapper {
-}
+@use "../../utils/media";
 
 .circleButton {
     display: flex;
@@ -16,6 +14,14 @@
     margin: 4px;
     top: 48.5%;
     left: 48.5%;
+    @include media.desktop-small {
+        top: 48%;
+        left: 48%;
+    }
+    @include media.laptop {
+        top: 47%;
+        left: 47%;
+    }
     width: 8px;
     height: 8px;
     --az: calc((var(--i) - 2) * 1turn / var(--m));
@@ -29,8 +35,12 @@
         height: 56px;
         background-color: #f4f5f9;
         border: 1px solid #9299a8;
-        /* animation: scale 300ms ease-in-out 0ms;
-        animation-fill-mode: forwards; */
+        @include media.laptop {
+            transform: rotate(var(--az)) translate(var(--r)) rotate(calc(-1 * var(--az))) translate(-22px, -22px)
+                rotate(calc(var(--rot) * 1turn / var(--m)));
+            width: 44px;
+            height: 44px;
+        }
     }
     &__order {
         display: block;
@@ -59,6 +69,12 @@
     height: 56px;
     background-color: #f4f5f9;
     border: 1px solid #9299a8;
+    @include media.laptop {
+        width: 44px;
+        height: 44px;
+        transform: rotate(var(--az)) translate(var(--r)) rotate(calc(-1 * var(--az))) translate(-22px, -22px)
+            rotate(calc(var(--rot) * 1turn / var(--m)));
+    }
 }
 
 @keyframes scale {

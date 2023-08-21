@@ -1,6 +1,13 @@
 @use "../../utils/fonts/fonts.scss";
+@use "../../utils/media";
 .top-buttons {
+    position: relative;
     margin-left: 80px;
+
+    @include media.mobile {
+        margin-left: 0;
+    }
+
     &__text {
         color: var(--black-blue);
         @include fonts.PTSansRegular(14px, 18px);
@@ -10,6 +17,10 @@
         display: flex;
         align-items: center;
         gap: 20px;
+        @include media.mobile {
+            margin-top: 10px;
+            gap: 8px;
+        }
     }
     &__left,
     &__right {
@@ -24,6 +35,11 @@
         &:hover {
             background-color: white;
         }
+        @include media.mobile {
+            width: 25px;
+            height: 25px;
+        }
+        z-index: 2;
     }
 
     &__right {
@@ -38,9 +54,34 @@
     align-items: center;
     flex-flow: row nowrap;
 
+    &__pagination {
+        transition: opacity ease-in-out 300ms 0ms;
+        display: none;
+        @include media.mobile {
+            top: 40% !important;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            &_inactive {
+                opacity: 0;
+            }
+            z-index: 1;
+        }
+    }
+
+    @include media.mobile {
+        border-top: 1px solid #c7cdd9;
+        padding-top: 20px;
+        margin-top: 0;
+    }
+
     &__container {
         cursor: grab;
         width: calc(100% - 160px);
+        @include media.mobile {
+            width: 100%;
+        }
         margin-right: 10px;
         transition: opacity ease-in-out 300ms 0ms;
         &_inactive {
@@ -56,6 +97,11 @@
         padding: 0;
         cursor: pointer;
         background: none;
+
+        @include media.mobile {
+            display: none;
+        }
+
         &:hover {
             opacity: var(--button-hover-opacity);
         }
@@ -66,5 +112,22 @@
     &__left {
         transform: rotate(180deg);
         margin-right: 10px;
+    }
+}
+
+.wrapper {
+    @include media.mobile {
+        display: flex;
+        flex-flow: column-reverse nowrap;
+        gap: 64px;
+    }
+}
+
+.slide {
+    transition: opacity ease-in-out 300ms 0ms;
+    &_inactive {
+        @include media.mobile {
+            opacity: 0.4;
+        }
     }
 }
